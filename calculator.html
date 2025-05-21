@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body { 
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      background: #222;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      width: 340px;
+    }
+
+    .display {
+      background: #000;
+      color: #0f0;
+      font-size: 2rem;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: right;
+      margin-bottom: 20px;
+      min-height: 60px;
+      overflow-x: auto;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 15px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 1.3rem;
+      border: none;
+      border-radius: 12px;
+      background-color: #333;
+      color: #fff;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    .operator {
+      background-color: #ff9f0a;
+    }
+
+    .clear {
+      background-color: #ff3b30;
+    }
+
+    .equal {
+      background-color: #34c759;
+    }
+
+    .wide {
+      grid-column: span 2;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator">
+  <div class="display" id="display">0</div>
+  <div class="buttons">
+    <button class="clear" onclick="clearAll()">C</button>
+    <button onclick="deleteLast()">←</button>
+    <button onclick="appendOperator('%')">%</button>
+    <button class="operator" onclick="appendOperator('/')">÷</button>
+
+    <button onclick="appendNumber('7')">7</button>
+    <button onclick="appendNumber('8')">8</button>
+    <button onclick="appendNumber('9')">9</button>
+    <button class="operator" onclick="appendOperator('*')">×</button>
+
+    <button onclick="appendNumber('4')">4</button>
+    <button onclick="appendNumber('5')">5</button>
+    <button onclick="appendNumber('6')">6</button>
+    <button class="operator" onclick="appendOperator('-')">−</button>
+
+    <button onclick="appendNumber('1')">1</button>
+    <button onclick="appendNumber('2')">2</button>
+    <button onclick="appendNumber('3')">3</button>
+    <button class="operator" onclick="appendOperator('+')">+</button>
+
+    <button class="wide" onclick="appendNumber('0')">0</button>
+    <button onclick="appendDot()">.</button>
+    <button class="equal" onclick="calculateResult()">=</button>
+  </div>
+</div>
+
+<script>
+  let currentInput = '';
+  let lastChar = '';
+  let display = document.getElementById('display');
+
+  const operators = ['+', '-', '*', '/', '%'];
+
+  function updateDisplay() {
+    display.textContent = currentInput || '0';
+  }
+
+  function appendNumber(num) {
+    currentInput += num;
+    lastChar = num;
+    updateDisplay();
+  }
+
+  function appendOperator(op) {
+    if (currentInput === '') return;
+
+    if (operators.includes(lastChar)) {
+      currentInput = currentInput.slice(0, -1);
+    }
+
+    currentInput += op;
+    lastChar = op;
+    updateDisplay();
+  }
+
+  function appendDot() {
+    const parts = currentInput.split(/[\+\-\*\/%]/);
+    const lastPart = parts[parts.length - 1];
+    if (!lastPart.includes('.')) {
+      currentInput += '.';
+      lastChar = '.';
+      updateDisplay();
+    }
+  }
+
+  function clearAll() {
+    currentInput = '';
+    lastChar = '';
+    updateDisplay();
+  }
+
+  function deleteLast() {
+    currentInput = currentInput.slice(0, -1);
+    lastChar = currentInput.slice(-1);
+    updateDisplay();
+  }
+
+  function calculateResult() {
+    try {
+      let result = Function('"use strict";return (' + currentInput + ')')();
+      currentInput = result.toString();
+    } catch (err) {
+      currentInput = 'Error';
+    }
+    updateDisplay();
+  }
+
+  // Optional: Keyboard support
+  window.addEventListener('keydown', (e) => {
+    if (e.key >= '0' && e.key <= '9') appendNumber(e.key);
+    if (['+', '-', '*', '/', '%'].includes(e.key)) appendOperator(e.key);
+    if (e.key === '.') appendDot();
+    if (e.key === 'Enter') calculateResult();
+    if (e.key === 'Backspace') deleteLast();
+    if (e.key === 'Escape') clearAll();
+  });
+</script>
+
+</body>
+</html>

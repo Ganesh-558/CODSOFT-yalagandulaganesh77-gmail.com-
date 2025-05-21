@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Landing Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+    nav {
+      background: #ff4d79;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+    header {
+      background-image: url('https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      height: 80vh;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+    }
+    header h1 {
+      font-size: 3rem;
+    }
+    section {
+      padding: 40px 20px;
+    }
+    .about,
+    .services,
+    .contact {
+      text-align: center;
+    }
+    .services .service-box {
+      display: inline-block;
+      width: 30%;
+      margin: 10px;
+      padding: 20px;
+      background: #f4f4f4;
+      border-radius: 10px;
+    }
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    @media (max-width: 768px) {
+      .services .service-box {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">Landing Page</div>
+    <div class="links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <header id="home">
+    <h1>Creative Digital Agency</h1>
+    <p>We build amazing websites and brands.</p>
+  </header>
+
+  <section id="about" class="about">
+    <h2>About Us</h2>
+    <p>We are passionate about achieving better results for our clients with over 15 years of experience.</p>
+  </section>
+
+  <section id="services" class="services">
+    <h2>Our Services</h2>
+    <div class="service-box">
+      <h3>User Experience</h3>
+      <p>Intuitive and enjoyable user interfaces.</p>
+    </div>
+    <div class="service-box">
+      <h3>Creative Design</h3>
+      <p>Stunning visuals for modern brands.</p>
+    </div>
+    <div class="service-box">
+      <h3>Retina Ready</h3>
+      <p>High-quality designs optimized for all screens.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <p>Email: yalagandulaganesh77@gmail.com | Phone: 9030371668</p>
+  </section>
+
+  <footer>
+    <p>&copy; GANESH Landing Page. All rights reserved.</p>
+  </footer>
+</body>
+</html>
